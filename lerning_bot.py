@@ -38,6 +38,7 @@ if __name__ == '__main__':
     project_id = os.getenv('GOGGLE_ID_PROJECT')
     client = dialogflow.IntentsClient()
     parent = client.project_agent_path(project_id)
+    train = False
 
     with open("questions.json", "r") as my_file:
         questions = json.load(my_file)
@@ -48,6 +49,8 @@ if __name__ == '__main__':
                                                                 training_phrases))
             except google.api_core.exceptions.InvalidArgument as e:
                 logger.error(e)
+            else:
+                train = True
 
-
-    start_train_agent(project_id)
+    if train:
+        start_train_agent(project_id)
