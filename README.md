@@ -3,6 +3,7 @@
  
 Он отвечает на типичные вопросы, сложные – перенаправляет на операторов
 
+
 Примеры работы:
 
 ![alt text](https://dvmn.org/filer/canonical/1569214094/323/ "Telegram bot")
@@ -10,6 +11,9 @@
 ![alt text](https://dvmn.org/filer/canonical/1569214089/322/ "Vk bot")
 
 
+[телеграм-бот](https://tlgg.ru/@hlmn_bot)
+
+[VK-бот](https://vk.com/club197757902)
 
 ## Как установить
 
@@ -68,7 +72,15 @@
 
 5. Прописываем переменные из `.env.example` в `Settings` -> `Config Vars`.
 
+6. Установку `GOOGLE_APPLICATION_CREDENTIALS` делаем по [инструкции](https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack).
 
+7. Подключаем buildpacks через [CLI](https://elements.heroku.com/buildpacks/buyersight/heroku-google-application-credentials-buildpack) или на странице Settings, проверяем чтобы там же был `heroku/python`.
 
+8. Запускаем приложение через вкладку Resources или CLI : 
+    ```
+    heroku ps:scale tg-bot=1 -a Имя_приложения
+    heroku ps:scale vk-bot=1 -a Имя_приложения
+    ```
 ### Цель проекта
+
 Код написан в образовательных целях на онлайн-курсе для веб-разработчиков [dvmn.org](https://dvmn.org).
