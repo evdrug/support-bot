@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-from dialogflow import detect_intent_texts
+from dialogflow import detect_intent_text
 from telegram_logger import TelegramLogsHandler
 
 logger = logging.getLogger(__file__)
@@ -15,12 +15,12 @@ def start(bot, update):
     update.message.reply_text("Здравствуйте.")
 
 
-def echo(bot, update):
+def conduct_dialogue(bot, update):
     session_id = update.message.chat.id
     text = update.message.text
     message = None
     try:
-        message = detect_intent_texts(session_id, [text], 'ru')
+        message = detect_intent_text(f'tg-{session_id}', text, 'ru')
     except Exception as e:
         logger.exception(f'\ud83c\udd98 DialogFlow error\n {e}')
     if message:
@@ -38,5 +38,5 @@ if __name__ == '__main__':
     logger.info('\u2705 Бот запущен')
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(
-        MessageHandler(Filters.text, echo))
+        MessageHandler(Filters.text, conduct_dialogue))
     updater.start_polling()

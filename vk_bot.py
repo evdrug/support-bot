@@ -6,18 +6,19 @@ import vk_api
 from dotenv import load_dotenv
 from vk_api.longpoll import VkLongPoll, VkEventType
 
-from dialogflow import detect_intent_texts
+from dialogflow import detect_intent_text
 from telegram_logger import TelegramLogsHandler
 
 logger = logging.getLogger(__file__)
 
 
-def echo(event, vk_api):
+def conduct_dialogue(event, vk_api):
     user_id = event.user_id,
     message = event.text,
     answer = None
     try:
-        answer = detect_intent_texts(user_id, message, 'ru', is_fallback=True)
+        answer = detect_intent_text(f'vk-{user_id}', message[0], 'ru',
+                                    is_fallback=True)
     except Exception as e:
         logger.exception(f'\ud83c\udd98 DialogFlow error\n {e}')
 
@@ -42,4 +43,4 @@ if __name__ == "__main__":
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
+            conduct_dialogue(event, vk_api)

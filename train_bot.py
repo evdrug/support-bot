@@ -30,17 +30,19 @@ def generate_intent(name, data):
 
 if __name__ == '__main__':
     load_dotenv()
+    path_file = os.getenv('QUESTIONS_FILE')
+
     logger.setLevel(logging.INFO)
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     logger.info('\u2705 Начинаем обучать бота ;) ')
 
-    project_id = os.getenv('GOGGLE_ID_PROJECT')
+    project_id = os.getenv('GOOGLE_ID_PROJECT')
     client = dialogflow.IntentsClient()
     parent = client.project_agent_path(project_id)
     train = False
 
-    with open("questions.json", "r") as my_file:
+    with open(path_file, "r") as my_file:
         questions = json.load(my_file)
         for intent, training_phrases in questions.items():
             try:

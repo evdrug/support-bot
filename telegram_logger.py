@@ -8,9 +8,9 @@ class TelegramLogsHandler(logging.Handler):
 
     def __init__(self, tg_bot=None):
         super().__init__()
-        self.chat_id = os.getenv('TELEGRAM_CHAT_ID_LOGGER')
+        self.chat_id = os.getenv('LOGGER_TELEGRAM_CHAT_ID')
         if not tg_bot:
-            self.telegram_token = os.getenv('TELEGRAM_TOKEN_LOGGER')
+            self.telegram_token = os.getenv('LOGGER_TELEGRAM_TOKEN')
             self.tg_bot = telegram.Bot(token=self.telegram_token)
         else:
             self.tg_bot = tg_bot

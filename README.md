@@ -7,80 +7,61 @@
 Примеры работы:
 
 ![alt text](https://dvmn.org/filer/canonical/1569214094/323/ "Telegram bot")
-
 ![alt text](https://dvmn.org/filer/canonical/1569214089/322/ "Vk bot")
 
 
-[телеграм-бот](https://tlgg.ru/@hlmn_bot)
-
+[телеграм-бот](https://tlgg.ru/@hlmn_bot)  
 [VK-бот](https://vk.com/club197757902)
 
 ## Как установить
 
-1. Создать DialogFlow [проект](https://cloud.google.com/dialogflow/docs/quick/setup).
+Создать DialogFlow [проект](https://cloud.google.com/dialogflow/docs/quick/setup).  
+Создать DialogFlow [агента](https://cloud.google.com/dialogflow/docs/quick/build-agent).  
+Создать [JSON-ключ](https://cloud.google.com/docs/authentication/getting-started).  
+Переименовать файл  `.env.example` в `.env`.  
+Добавить учетный данные в файл `.env`  
+* `TELEGRAM_TOKEN`  -   токен вашего бота в Telegram
+* `VK_TOKEN` - токен вашего бота в VK
+* `GOGGLE_ID_PROJECT` -  id вашего google проекта (из шага 1)
+* `GOOGLE_APPLICATION_CREDENTIALS` - путь до json-ключа (из шага 3)
+* `TELEGRAM_CHAT_ID_LOGGER` - чат id в который отправлять логи
+* `TELEGRAM_TOKEN_LOGGER` - токен бота от имени которого отправляются логи
+* `QUESTIONS_FILE` - путь к json файлу, для обучения бота
 
-2. Создать DialogFlow [агента](https://cloud.google.com/dialogflow/docs/quick/build-agent).
+Python3 должен быть уже установлен.  
+Затем используйте pip (или pip3, есть есть конфликт с Python2) для установки зависимостей:
 
-3. Создать [JSON-ключ](https://cloud.google.com/docs/authentication/getting-started).
-    
-4. Переименовать файл  `.env.example` в `.env`.
-    
-5. Добавить учетный данные в файл `.env`
+```
+pip install -r requirements.txt
+```  
+Для обучения бота, заполнить по аналогии файл `questions.json` и выполнить
+```
+python train_bot.py
+```
 
-    `TELEGRAM_TOKEN`  -   токен вашего бота в Telegram
-
-    `VK_TOKEN` - токен вашего бота в VK
-
-    `GOGGLE_ID_PROJECT` -  id вашего google проекта (из шага 1)
-        
-    `GOOGLE_APPLICATION_CREDENTIALS` - путь до json-ключа (из шага 3)
-    
-    `TELEGRAM_CHAT_ID_LOGGER` - чат id в который отправлять логи
-
-    `TELEGRAM_TOKEN_LOGGER` - токен бота от имени которого отправляются логи
-
-6. Python3 должен быть уже установлен. 
-
-    Затем используйте pip (или pip3, есть есть конфликт с Python2) для установки зависимостей:
-    ```
-    pip install -r requirements.txt
-   ```
-
-7. Обучение бота
-
-    заполнить по анологии файл `questions.json`
-    ```
-   python lerning_bot.py
-   ```
 ## Как пользоваться
 Запуск ботов:
-    
-    python telegram_bot.py
-    python vk_bot.py
-
+```
+python telegram_bot.py
+python vk_bot.py
+```
 
 
 ## Размещение на Heroku
 
-1. Создаем [новое](https://dashboard.heroku.com/new-app) приложение.
+Создаем [новое](https://dashboard.heroku.com/new-app) приложение.  
+Переходим в `Deploy`, подключаем репозиторий github.  
+Нажимаем `Deploy Branch`.  
+Устанавливаем и авторизовываемся в [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).  
+Прописываем переменные из `.env.example` в `Settings` -> `Config Vars`.  
+Установку `GOOGLE_APPLICATION_CREDENTIALS` делаем по [инструкции](https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack).  
+Подключаем buildpacks через [CLI](https://elements.heroku.com/buildpacks/buyersight/heroku-google-application-credentials-buildpack) или на странице Settings, проверяем чтобы там же был `heroku/python`.  
+Запускаем приложение через вкладку Resources или CLI : 
 
-2. Переходим в `Deploy`, подключаем репозиторий github.
-
-3. Нажимаем `Deploy Branch`.
-
-4. Устанавливаем и авторизовываемся в [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
-
-5. Прописываем переменные из `.env.example` в `Settings` -> `Config Vars`.
-
-6. Установку `GOOGLE_APPLICATION_CREDENTIALS` делаем по [инструкции](https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack).
-
-7. Подключаем buildpacks через [CLI](https://elements.heroku.com/buildpacks/buyersight/heroku-google-application-credentials-buildpack) или на странице Settings, проверяем чтобы там же был `heroku/python`.
-
-8. Запускаем приложение через вкладку Resources или CLI : 
-    ```
-    heroku ps:scale tg-bot=1 -a Имя_приложения
-    heroku ps:scale vk-bot=1 -a Имя_приложения
-    ```
+```
+heroku ps:scale tg-bot=1 -a Имя_приложения
+heroku ps:scale vk-bot=1 -a Имя_приложения
+```
 ### Цель проекта
 
 Код написан в образовательных целях на онлайн-курсе для веб-разработчиков [dvmn.org](https://dvmn.org).
