@@ -24,8 +24,8 @@
 * `VK_TOKEN` - токен вашего бота в VK
 * `GOGGLE_ID_PROJECT` -  id вашего google проекта (из шага 1)
 * `GOOGLE_APPLICATION_CREDENTIALS` - путь до json-ключа (из шага 3)
-* `TELEGRAM_CHAT_ID_LOGGER` - чат id в который отправлять логи
-* `TELEGRAM_TOKEN_LOGGER` - токен бота от имени которого отправляются логи
+* `LOGGER_TELEGRAM_CHAT_ID` - чат id в который отправлять логи
+* `LOGGER_TELEGRAM_TOKEN` - токен бота от имени которого отправляются логи
 * `QUESTIONS_FILE` - путь к json файлу, для обучения бота
 
 Python3 должен быть уже установлен.  
