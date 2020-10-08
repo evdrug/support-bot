@@ -30,7 +30,7 @@ def generate_intent(name, data):
 
 if __name__ == '__main__':
     load_dotenv()
-    path_file = os.getenv('QUESTIONS_FILE')
+    path_file = os.getenv('QUESTIONS_FILE', 'questions.json')
 
     logger.setLevel(logging.INFO)
     logging.basicConfig(
@@ -42,8 +42,8 @@ if __name__ == '__main__':
     parent = client.project_agent_path(project_id)
     train = False
 
-    with open(path_file, "r") as my_file:
-        questions = json.load(my_file)
+    with open(path_file, "r") as questions_file:
+        questions = json.load(questions_file)
         for intent, training_phrases in questions.items():
             try:
                 response = client.create_intent(parent,
